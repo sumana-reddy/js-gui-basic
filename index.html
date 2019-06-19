@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Interactive App</title>
+
+  <meta name="description" content="Interactive app">
+  <meta name="author" content="Denise Case">
+
+</head>
+
+<body>
+
+  <main>
+
+    <h2>Interactive app!</h2>
+    <hr>
+
+    <fieldset>
+      <label for="guest">Enter your name (2 to 40 characters):</label>
+      <input id="guest" type="text" minlength="2" maxlength="40" value="Lilly">
+    </fieldset>
+
+    <fieldset>
+      <label for="firstNumber">Enter first number (1 to 100):</label>
+      <input id="firstNumber" type="number" min="1" max="100" value="7">
+    </fieldset>
+
+    <fieldset>
+      <label for="secondNumber">Enter second number (1 to 100):</label>
+      <input id="secondNumber" type="number" min="1" max="100" value="12">
+    </fieldset>
+
+    <h2>Try these:</h2>
+    <hr>
+
+    <button id="addButton">Add</button>
+    <button id="getJokeButton">Get Joke</button>
+    <button id="clicker">Coming soon!</button>
+    <hr>
+
+    <p id="result"></p>
+
+  </main>
+
+  <hr>
+
+  <footer>
+    <span>Right-click / Inspect / Console</span>
+  </footer>
+
+  
+  <script>
+    console.log('SCRIPT START...................................')
+    console.log('Declare testable functions.....................')
+
+    const add = (x, y) => {
+      return x + y
+    }
+
+    console.log('Declare event listeners .......................')
+
+    document.querySelector('#addButton').addEventListener('click', () => {
+      const s = document.querySelector('#guest').value
+      const i = parseInt(document.querySelector('#firstNumber').value)
+      console.log(`i=${i}`)
+      const j = parseInt(document.querySelector('#secondNumber').value)
+      console.log(`j=${j}`)
+      const ans = `${s}, your sum is ${add(i, j)}.`
+      document.querySelector('#result').innerHTML = ans
+    })
+
+    document.querySelector('#getJokeButton').addEventListener('click', async () => {
+      console.log('SmileHandler calling joke handler')
+      const url = 'http://api.icndb.com/jokes/random?limitTo=[nerdy]';
+      const response = await fetch(url)
+      const obj = await response.json();
+      console.dir(obj)
+      const joke = obj.value.joke || 'No joke for you.';
+      document.querySelector('#result').innerHTML = joke
+    })
+
+    console.log('SCRIPT END....................................')
+  </script>
+
+</body>
+
+</html>
